@@ -1361,47 +1361,53 @@ const initialize = async () => {
   /**
    * Sign Typed Data Version 3 Test
    */
-  signTypedDataV3.onclick = async () => {
-    const networkId = parseInt(networkDiv.innerHTML, 10);
-    const chainId = parseInt(chainIdDiv.innerHTML, 16) || networkId;
 
-    const msgParams = {
-      types: {
-        EIP712Domain: [
-          { name: 'name', type: 'string' },
-          { name: 'version', type: 'string' },
-          { name: 'chainId', type: 'uint256' },
-          { name: 'verifyingContract', type: 'address' },
-        ],
-        Person: [
-          { name: 'name', type: 'string' },
-          { name: 'wallet', type: 'address' },
-        ],
-        Mail: [
-          { name: 'from', type: 'Person' },
-          { name: 'to', type: 'Person' },
-          { name: 'contents', type: 'string' },
-        ],
-      },
-      primaryType: 'Mail',
-      domain: {
-        name: 'Ether Mail',
-        version: '1',
-        chainId,
-        verifyingContract: '0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC',
-      },
-      message: {
-        from: {
-          name: 'Cow',
-          wallet: '0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826',
-        },
-        to: {
-          name: 'Bob',
-          wallet: '0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB',
-        },
-        contents: 'Hello, Bob!',
-      },
-    };
+  const domain = {
+    chainId: 1,
+    verifyingContract: '0x3806a85D9b8E017d2714B5a240f3e7737279a3Ba',
+    // version: '1',
+    // name: 'Safe',
+  };
+
+  const message = {
+    to: '0x6b175474e89094c44da98b954eedeac495271d0f',
+    value: 0,
+    data: '0xa9059cbb0000000000000000000000007cc252b3bde15f7cdb9d4156c45198ef904c760a0000000000000000000000000000000000000000000000000de0b6b3a7640000',
+    operation: 0,
+    safeTxGas: 0,
+    baseGas: 0,
+    gasPrice: 0,
+    gasToken: '0x0000000000000000000000000000000000000000',
+    refundReceiver: '0x0000000000000000000000000000000000000000',
+    nonce: 0,
+  };
+
+  const types = {
+    SafeTx: [
+      { type: 'address', name: 'to' },
+      { type: 'uint256', name: 'value' },
+      { type: 'bytes', name: 'data' },
+      { type: 'uint8', name: 'operation' },
+      { type: 'uint256', name: 'safeTxGas' },
+      { type: 'uint256', name: 'baseGas' },
+      { type: 'uint256', name: 'gasPrice' },
+      { type: 'address', name: 'gasToken' },
+      { type: 'address', name: 'refundReceiver' },
+      { type: 'uint256', name: 'nonce' },
+    ],
+  };
+
+  const msgParams = {
+    types,
+    primaryType: 'SafeTx',
+    domain,
+    message,
+  };
+
+  signTypedDataV3.onclick = async () => {
+    // const networkId = parseInt(networkDiv.innerHTML, 10);
+    // const chainId = parseInt(chainIdDiv.innerHTML, 16) || networkId;
+
     try {
       const from = accounts[0];
       const sign = await ethereum.request({
@@ -1420,46 +1426,6 @@ const initialize = async () => {
    * Sign Typed Data V3 Verification
    */
   signTypedDataV3Verify.onclick = async () => {
-    const networkId = parseInt(networkDiv.innerHTML, 10);
-    const chainId = parseInt(chainIdDiv.innerHTML, 16) || networkId;
-
-    const msgParams = {
-      types: {
-        EIP712Domain: [
-          { name: 'name', type: 'string' },
-          { name: 'version', type: 'string' },
-          { name: 'chainId', type: 'uint256' },
-          { name: 'verifyingContract', type: 'address' },
-        ],
-        Person: [
-          { name: 'name', type: 'string' },
-          { name: 'wallet', type: 'address' },
-        ],
-        Mail: [
-          { name: 'from', type: 'Person' },
-          { name: 'to', type: 'Person' },
-          { name: 'contents', type: 'string' },
-        ],
-      },
-      primaryType: 'Mail',
-      domain: {
-        name: 'Ether Mail',
-        version: '1',
-        chainId,
-        verifyingContract: '0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC',
-      },
-      message: {
-        from: {
-          name: 'Cow',
-          wallet: '0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826',
-        },
-        to: {
-          name: 'Bob',
-          wallet: '0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB',
-        },
-        contents: 'Hello, Bob!',
-      },
-    };
     try {
       const from = accounts[0];
       const sign = signTypedDataV3Result.innerHTML;
@@ -1488,45 +1454,45 @@ const initialize = async () => {
     // const networkId = parseInt(networkDiv.innerHTML, 10);
     // const chainId = parseInt(chainIdDiv.innerHTML, 16) || networkId;
 
-    const domain = {
-      chainId: 1,
-      verifyingContract: '0x3806a85D9b8E017d2714B5a240f3e7737279a3Ba',
-    };
+    // const domain = {
+    //   chainId: '1',
+    //   verifyingContract: '0x3806a85D9b8E017d2714B5a240f3e7737279a3Ba',
+    // };
 
-    const message = {
-      to: '0x6b175474e89094c44da98b954eedeac495271d0f',
-      value: 0,
-      data: '0xa9059cbb0000000000000000000000007cc252b3bde15f7cdb9d4156c45198ef904c760a0000000000000000000000000000000000000000000000000de0b6b3a7640000',
-      operation: 0,
-      safeTxGas: 0,
-      baseGas: 0,
-      gasPrice: 0,
-      gasToken: '0x0000000000000000000000000000000000000000',
-      refundReceiver: '0x0000000000000000000000000000000000000000',
-      nonce: 0,
-    };
+    // const message = {
+    //   to: '0x6b175474e89094c44da98b954eedeac495271d0f',
+    //   value: 0,
+    //   data: '0xa9059cbb0000000000000000000000007cc252b3bde15f7cdb9d4156c45198ef904c760a0000000000000000000000000000000000000000000000000de0b6b3a7640000',
+    //   operation: 0,
+    //   safeTxGas: 0,
+    //   baseGas: 0,
+    //   gasPrice: 0,
+    //   gasToken: '0x0000000000000000000000000000000000000000',
+    //   refundReceiver: '0x0000000000000000000000000000000000000000',
+    //   nonce: 0,
+    // };
 
-    const types = {
-      SafeTx: [
-        { type: 'address', name: 'to' },
-        { type: 'uint256', name: 'value' },
-        { type: 'bytes', name: 'data' },
-        { type: 'uint8', name: 'operation' },
-        { type: 'uint256', name: 'safeTxGas' },
-        { type: 'uint256', name: 'baseGas' },
-        { type: 'uint256', name: 'gasPrice' },
-        { type: 'address', name: 'gasToken' },
-        { type: 'address', name: 'refundReceiver' },
-        { type: 'uint256', name: 'nonce' }
-      ],
-    };
+    // const types = {
+    //   SafeTx: [
+    //     { type: 'address', name: 'to' },
+    //     { type: 'uint256', name: 'value' },
+    //     { type: 'bytes', name: 'data' },
+    //     { type: 'uint8', name: 'operation' },
+    //     { type: 'uint256', name: 'safeTxGas' },
+    //     { type: 'uint256', name: 'baseGas' },
+    //     { type: 'uint256', name: 'gasPrice' },
+    //     { type: 'address', name: 'gasToken' },
+    //     { type: 'address', name: 'refundReceiver' },
+    //     { type: 'uint256', name: 'nonce' },
+    //   ],
+    // };
 
-    const msgParams = {
-      domain,
-      message,
-      primaryType: 'SafeTx',
-      types,
-    };
+    // const msgParams = {
+    //   domain,
+    //   message,
+    //   primaryType: 'SafeTx',
+    //   types,
+    // };
     try {
       const from = accounts[0];
       const sign = await ethereum.request({
@@ -1545,58 +1511,8 @@ const initialize = async () => {
    *  Sign Typed Data V4 Verification
    */
   signTypedDataV4Verify.onclick = async () => {
-    const networkId = parseInt(networkDiv.innerHTML, 10);
-    const chainId = parseInt(chainIdDiv.innerHTML, 16) || networkId;
-    const msgParams = {
-      domain: {
-        chainId,
-        name: 'Ether Mail',
-        verifyingContract: '0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC',
-        version: '1',
-      },
-      message: {
-        contents: 'Hello, Bob!',
-        from: {
-          name: 'Cow',
-          wallets: [
-            '0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826',
-            '0xDeaDbeefdEAdbeefdEadbEEFdeadbeEFdEaDbeeF',
-          ],
-        },
-        to: [
-          {
-            name: 'Bob',
-            wallets: [
-              '0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB',
-              '0xB0BdaBea57B0BDABeA57b0bdABEA57b0BDabEa57',
-              '0xB0B0b0b0b0b0B000000000000000000000000000',
-            ],
-          },
-        ],
-      },
-      primaryType: 'Mail',
-      types: {
-        EIP712Domain: [
-          { name: 'name', type: 'string' },
-          { name: 'version', type: 'string' },
-          { name: 'chainId', type: 'uint256' },
-          { name: 'verifyingContract', type: 'address' },
-        ],
-        Group: [
-          { name: 'name', type: 'string' },
-          { name: 'members', type: 'Person[]' },
-        ],
-        Mail: [
-          { name: 'from', type: 'Person' },
-          { name: 'to', type: 'Person[]' },
-          { name: 'contents', type: 'string' },
-        ],
-        Person: [
-          { name: 'name', type: 'string' },
-          { name: 'wallets', type: 'address[]' },
-        ],
-      },
-    };
+    // const networkId = parseInt(networkDiv.innerHTML, 10);
+    // const chainId = parseInt(chainIdDiv.innerHTML, 16) || networkId;
     try {
       const from = accounts[0];
       const sign = signTypedDataV4Result.innerHTML;
