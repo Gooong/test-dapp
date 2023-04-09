@@ -1368,7 +1368,7 @@ const initialize = async () => {
   };
 
   const message = {
-    to: '0x6b175474e89094c44da98b954eedeac495271d0f',
+    to: '0x7cC252b3BDE15f7cdb9D4156C45198EF904c760A',
     value: '0x2E87BAA4098ADE8B',
     data: '0x',
     operation: 0,
@@ -1377,7 +1377,7 @@ const initialize = async () => {
     gasPrice: 0,
     gasToken: '0x0000000000000000000000000000000000000000',
     refundReceiver: '0x0000000000000000000000000000000000000000',
-    nonce: 2,
+    nonce: 2
   };
 
   const types = {
