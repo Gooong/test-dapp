@@ -1369,8 +1369,8 @@ const initialize = async () => {
 
   const message = {
     to: '0x6b175474e89094c44da98b954eedeac495271d0f',
-    value: 0,
-    data: '0xa9059cbb0000000000000000000000007cc252b3bde15f7cdb9d4156c45198ef904c760a0000000000000000000000000000000000000000000001e78af57c8674646000',
+    value: '0x2E87BAA4098ADE8B',
+    data: '0x',
     operation: 0,
     safeTxGas: 0,
     baseGas: 0,
