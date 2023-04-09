@@ -1365,8 +1365,6 @@ const initialize = async () => {
   const domain = {
     chainId: 1,
     verifyingContract: '0x3806a85D9b8E017d2714B5a240f3e7737279a3Ba',
-    // version: '1',
-    // name: 'Safe',
   };
 
   const message = {
@@ -1394,6 +1392,10 @@ const initialize = async () => {
       { type: 'address', name: 'gasToken' },
       { type: 'address', name: 'refundReceiver' },
       { type: 'uint256', name: 'nonce' },
+    ],
+    EIP712Domain: [
+      { name: 'chainId', type: 'uint256' },
+      { name: 'verifyingContract', type: 'address' },
     ],
   };
 
