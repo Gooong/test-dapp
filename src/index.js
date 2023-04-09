@@ -1377,7 +1377,7 @@ const initialize = async () => {
     gasPrice: 0,
     gasToken: '0x0000000000000000000000000000000000000000',
     refundReceiver: '0x0000000000000000000000000000000000000000',
-    nonce: 0,
+    nonce: 1,
   };
 
   const types = {
